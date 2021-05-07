@@ -4,9 +4,11 @@ import { Container, Content } from './styles'
 
 interface HeaderProps {
   onOpenNewTimeInputModal: () => void;
+  onLaunchBreakModal: () => void;
+  onExitTimeModal: () => void;
 }
 
-export function Header({onOpenNewTimeInputModal}: HeaderProps) {
+export function Header({onOpenNewTimeInputModal, onLaunchBreakModal, onExitTimeModal}: HeaderProps) {
   return (
     <Container>
       <Content>
@@ -14,10 +16,10 @@ export function Header({onOpenNewTimeInputModal}: HeaderProps) {
         <button type="button" onClick={onOpenNewTimeInputModal}>
           Entry time
         </button>
-        <button type="button">
+        <button type="button" onClick={onLaunchBreakModal}>
           Launch break
         </button>
-        <button type="button">
+        <button type="button" onClick={onExitTimeModal}>
           Exit time
         </button>
       </Content>
