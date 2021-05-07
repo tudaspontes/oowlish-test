@@ -1,12 +1,17 @@
 import logoImg from '../../assets/logo.png'
+
 import { Container, Content } from './styles'
 
-export function Header() {
+interface HeaderProps {
+  onOpenNewTimeInputModal: () => void;
+}
+
+export function Header({onOpenNewTimeInputModal}: HeaderProps) {
   return (
     <Container>
       <Content>
         <img src={logoImg} alt="logo" />
-        <button type="button">
+        <button type="button" onClick={onOpenNewTimeInputModal}>
           Entry time
         </button>
         <button type="button">
