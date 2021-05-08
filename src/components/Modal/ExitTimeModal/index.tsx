@@ -20,7 +20,7 @@ export function ExitTimeModal({isOpen, onRequestClose}:ExitTimeModalProps) {
       </button>
 
       <Container>
-        <h2>Register Time</h2>
+        <h2>Register Exit Time</h2>
 
         <input
           type="time" id="exit-time"
