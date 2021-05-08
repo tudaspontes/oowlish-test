@@ -2,6 +2,7 @@ import { Container } from './styles'
 import Modal from "react-modal";
 import closeImg from '../../../assets/close.svg'
 import { FormEvent, useState } from 'react';
+import { api } from '../../../services/api';
 
 interface EntryTimeModalProps {
   isOpen: boolean;
@@ -13,6 +14,12 @@ export function EntryTimeModal({isOpen, onRequestClose}:EntryTimeModalProps) {
 
   function handleEntryTime(event: FormEvent) {
     event.preventDefault();
+
+    const data = {
+      value
+    }
+
+    api.post('/timetable', data)
   }
 
   return(

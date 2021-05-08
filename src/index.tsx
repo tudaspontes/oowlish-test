@@ -1,20 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createServer } from 'miragejs'
+import { createServer, Model } from 'miragejs'
 import { App } from './App';
 
 createServer({
+  models: {
+    timetable: Model,
+  },
+
+  seeds(server) {
+    server.db.loadData({
+      timetables: [
+        {
+          id: 1,
+          day: new Date('2021-05-12'),
+          entry: new Date('2021-05-12'),
+          launchbreak: 40,
+          exit: new Date('2021-05-12'),
+          worked: 8
+        }
+      ]
+    })
+  },
+
   routes() {
     this.namespace = 'api';
     this.get('/timetable', () => {
-      return [
-        {
-          id: 1,
-          title: 'day 1',
-          time: 200,
-          day: new Date()
-        }
-      ]
+      return this.schema.all('timetable')
+    })
+
+    this.post('/timetable', (schema, request) => {
+      const data = JSON.parse(request.requestBody)
+
+      return schema.create('timetable', data);
     })
   }
 })

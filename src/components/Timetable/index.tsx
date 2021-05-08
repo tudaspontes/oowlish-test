@@ -1,11 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Container } from "./styles";
 
+interface TimeTable {
+  id: number;
+  day: string;
+  entry: string;
+  launchbreak: number;
+  exit: string;
+  worked: number;
+}
+
 export function TimeTable() {
+  const [timeTables, setTimeTables] = useState<TimeTable[]>([])
+
   useEffect(() => {
     api.get('timetable')
-    .then(response => console.log(response.data))
+    .then(response => setTimeTables(response.data.timetables))
   }, []);
   
   return(
@@ -22,27 +33,32 @@ export function TimeTable() {
         </thead>
 
         <tbody>
-          <tr>
-            <td>02/05/2021</td>
-            <td className="entry">09:00</td>
-            <td>40min</td>
-            <td>17:00</td>
-            <td>07:20</td>
-          </tr>
-          <tr>
-            <td>02/05/2021</td>
-            <td>09:00</td>
-            <td>40min</td>
-            <td className="exit">17:00</td>
-            <td>07:20</td>
-          </tr>
-          <tr>
-            <td>02/05/2021</td>
-            <td>09:00</td>
-            <td>40min</td>
-            <td>17:00</td>
-            <td>07:20</td>
-          </tr>
+          {timeTables.map(timeTable => (
+            <tr key={timeTable.id}>
+              <td>{new Intl.DateTimeFormat().format(
+                new Date(timeTable.day)
+                )}
+              </td>
+              <td className="entry">{new Intl.DateTimeFormat('US-EN', {
+                timeStyle: 'medium'
+                }).format(
+                new Date(timeTable.exit)
+                )}
+              </td>
+              <td>{timeTable.launchbreak} min</td>
+              <td>{new Intl.DateTimeFormat('US-EN', {
+                timeStyle: 'medium'
+                }).format(
+                new Date(timeTable.exit)
+                )}
+              </td>
+              <td>{new Intl.DateTimeFormat('US-EN', {
+                timeStyle: 'medium'
+                }).format(timeTable.worked)
+                }
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </Container>
