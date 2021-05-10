@@ -1,24 +1,10 @@
-import { useEffect, useState } from "react";
-import { api } from "../../services/api";
+import { useContext } from "react";
+import { TimeTableContext } from "../../TimeTableContext";
 import { Container } from "./styles";
 
-interface TimeTable {
-  id: number;
-  day: string;
-  entry: string;
-  launchbreak: number;
-  exit: string;
-  worked: number;
-}
-
 export function TimeTable() {
-  const [timeTables, setTimeTables] = useState<TimeTable[]>([])
+  const timeTables = useContext(TimeTableContext)
 
-  useEffect(() => {
-    api.get('timetable')
-    .then(response => setTimeTables(response.data.timetables))
-  }, []);
-  
   return(
     <Container>
       <table>

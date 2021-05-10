@@ -5,6 +5,7 @@ import { Dashboard } from "./components/Dashboard";
 import { EntryTimeModal } from "./components/Modal/EntryTimeModal";
 import { LaunchBreakModal } from "./components/Modal/LaunchBreakModal";
 import { ExitTimeModal } from "./components/Modal/ExitTimeModal";
+import { TimeTableProvider } from "./TimeTableContext";
 
 import Modal from 'react-modal'
 Modal.setAppElement('#root')
@@ -40,7 +41,7 @@ export function App() {
     setIsExitTimeModal(false)
   }
   return (
-    <>
+    <TimeTableProvider>
       <Header
         onOpenNewTimeInputModal={handleOpenNewInputTimeModal}
         onLaunchBreakModal={handleOpenLaunchBreakModal}
@@ -60,6 +61,6 @@ export function App() {
         isOpen={IsExitTimeModal}
         onRequestClose={handleCloseExitTimeModal}
       />
-    </>
+    </TimeTableProvider>
   );
 }
