@@ -3,9 +3,7 @@ import { TimeTableContext } from "../../TimeTableContext";
 import { Container } from "../Summary/styles";
 
 export function Summary() {
-  const {timeTables} = useContext(TimeTableContext)
-
-  console.log(timeTables)
+  const { timeTables } = useContext(TimeTableContext)
 
   return (
     <Container>

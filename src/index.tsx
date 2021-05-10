@@ -13,10 +13,10 @@ createServer({
       timetables: [
         {
           id: 1,
-          day: new Date('2021-05-12'),
-          entry: new Date('2021-05-12'),
+          day: new Date(),
+          entry: new Date(),
           launchbreak: 40,
-          exit: new Date('2021-05-12'),
+          exit: new Date(),
           worked: 8
         }
       ]

@@ -8,6 +8,7 @@ import { ExitTimeModal } from "./components/Modal/ExitTimeModal";
 import { TimeTableProvider } from "./TimeTableContext";
 
 import Modal from 'react-modal'
+
 Modal.setAppElement('#root')
 
 export function App() {

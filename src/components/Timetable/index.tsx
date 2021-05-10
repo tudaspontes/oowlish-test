@@ -28,7 +28,7 @@ export function TimeTable() {
               <td className="entry">{new Intl.DateTimeFormat('US-EN', {
                 timeStyle: 'medium'
                 }).format(
-                new Date(timeTable.exit)
+                new Date(timeTable.entry)
                 )}
               </td>
               <td>{timeTable.launchbreak} min</td>

@@ -12,14 +12,16 @@ interface EntryTimeModalProps {
 export function EntryTimeModal({isOpen, onRequestClose}:EntryTimeModalProps) {
   const { createTimeTable } = useContext(TimeTableContext)
   
-  const [entry, setEntry] = useState('0')
+  const [entry, setEntry] = useState('')
 
-  function handleEntryTime(event: FormEvent) {
+  async function handleEntryTime(event: FormEvent) {
     event.preventDefault();
 
-    createTimeTable({
+    await createTimeTable({
       entry
     })
+
+    onRequestClose();
   }
 
   return(

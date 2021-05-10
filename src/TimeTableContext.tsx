@@ -10,7 +10,7 @@ interface TimeTable {
   worked: number;
 }
 
-type TimeTableInput = Pick<TimeTable, 'entry'>;
+type TimeTableInput = Pick<TimeTable, 'entry'>
 
 interface TimeTableProviderProps {
   children: ReactNode;
@@ -18,7 +18,7 @@ interface TimeTableProviderProps {
 
 interface timeTablesContextData {
   timeTables: TimeTable[];
-  createTimeTable: (timeTable: TimeTableInput) => void;
+  createTimeTable: (timeTable: TimeTableInput) => Promise<void>;
 }
 
 export const TimeTableContext = createContext<timeTablesContextData>(
@@ -34,8 +34,16 @@ const [timeTables, setTimeTables] = useState<TimeTable[]>([])
     .then(response => setTimeTables(response.data.timetables))
   }, []);
 
-  function createTimeTable (timeTable: TimeTableInput) {
-    api.post('/timetable', timeTable)
+  async function createTimeTable (timeTableInput: TimeTableInput) {
+    const response = await api.post('/timetable', {
+      ...timeTableInput
+    })
+    const { timeTable } = response.data;
+
+    setTimeTables([
+      ...timeTables,
+      timeTable,  
+    ]);
   }
 
   return (
