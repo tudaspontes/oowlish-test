@@ -3,7 +3,7 @@ import { TimeTableContext } from "../../TimeTableContext";
 import { Container } from "./styles";
 
 export function TimeTable() {
-  const timeTables = useContext(TimeTableContext)
+  const {timeTables} = useContext(TimeTableContext)
 
   return(
     <Container>

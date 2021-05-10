@@ -1,8 +1,8 @@
 import { Container } from './styles'
 import Modal from "react-modal";
 import closeImg from '../../../assets/close.svg'
-import { FormEvent, useState } from 'react';
-import { api } from '../../../services/api';
+import { FormEvent, useState, useContext } from 'react';
+import { TimeTableContext } from '../../../TimeTableContext';
 
 interface EntryTimeModalProps {
   isOpen: boolean;
@@ -10,16 +10,16 @@ interface EntryTimeModalProps {
 }
 
 export function EntryTimeModal({isOpen, onRequestClose}:EntryTimeModalProps) {
-  const [value, setValue] = useState('0')
+  const { createTimeTable } = useContext(TimeTableContext)
+  
+  const [entry, setEntry] = useState('0')
 
   function handleEntryTime(event: FormEvent) {
     event.preventDefault();
 
-    const data = {
-      value
-    }
-
-    api.post('/timetable', data)
+    createTimeTable({
+      entry
+    })
   }
 
   return(
@@ -39,8 +39,8 @@ export function EntryTimeModal({isOpen, onRequestClose}:EntryTimeModalProps) {
         <input
           type="time"
           id="entry-time"
-          value={value}
-          onChange={event => setValue(event.target.value)}
+          value={entry}
+          onChange={event => setEntry(event.target.value)}
         />
 
         <button type="submit">Register</button>
