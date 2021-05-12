@@ -1,9 +1,8 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { calculoDeHoras } from "./utils/Util";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("Cálculo de horas", () => {
+  test("deve trazer -10", () => {
+    const resultado = calculoDeHoras({ ini: 10, fim: 5 });
+    expect(resultado).toEqual(5);
+  });
 });
