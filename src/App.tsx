@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { GlobalStyle } from "./styles/global";
-import { Header } from './components/Header'
+import Modal from "react-modal";
 import { Dashboard } from "./components/Dashboard";
+import { Header } from "./components/Header";
 import { EntryTimeModal } from "./components/Modal/EntryTimeModal";
-import { LaunchBreakModal } from "./components/Modal/LaunchBreakModal";
 import { ExitTimeModal } from "./components/Modal/ExitTimeModal";
+import { LaunchBreakModal } from "./components/Modal/LaunchBreakModal";
+import { GlobalStyle } from "./styles/global";
 import { TimeTableProvider } from "./TimeTableContext";
 
-import Modal from 'react-modal'
-
-Modal.setAppElement('#root')
+Modal.setAppElement("#root");
 
 export function App() {
+  const [qualAmodalQueEstaAbertaAgora, setQualAmodalQueEstaAbertaAgora] =
+    useState("EntryTime");
   const [isNewInputTimeModalOpen, setIsNewInputTimeModalOpen] = useState(false);
 
   function handleOpenNewInputTimeModal() {
@@ -20,45 +21,50 @@ export function App() {
 
   function handleCloseNewInputTimeModal() {
     setIsNewInputTimeModalOpen(false);
+    setQualAmodalQueEstaAbertaAgora("LaunchBreak");
   }
 
   const [IsLaunchBreakModal, setIsLaunchBreakModal] = useState(false);
 
   function handleOpenLaunchBreakModal() {
-    setIsLaunchBreakModal(true)
+    setIsLaunchBreakModal(true);
   }
 
   function handleCloseLaunchBreakModal() {
-    setIsLaunchBreakModal(false)
+    setIsLaunchBreakModal(false);
+    setQualAmodalQueEstaAbertaAgora("ExitTime");
   }
 
   const [IsExitTimeModal, setIsExitTimeModal] = useState(false);
 
   function handleOpenExitTimeModal() {
-    setIsExitTimeModal(true)
+    setIsExitTimeModal(true);
   }
 
   function handleCloseExitTimeModal() {
-    setIsExitTimeModal(false)
+    setIsExitTimeModal(false);
+    setQualAmodalQueEstaAbertaAgora("acabou");
   }
   return (
     <TimeTableProvider>
       <Header
         onOpenNewTimeInputModal={handleOpenNewInputTimeModal}
         onLaunchBreakModal={handleOpenLaunchBreakModal}
-        onExitTimeModal={handleOpenExitTimeModal}/>
-        
+        onExitTimeModal={handleOpenExitTimeModal}
+        qualAmodalQueEstaAbertaAgora={qualAmodalQueEstaAbertaAgora}
+      />
+
       <Dashboard />
       <GlobalStyle />
       <EntryTimeModal
         isOpen={isNewInputTimeModalOpen}
         onRequestClose={handleCloseNewInputTimeModal}
       />
-      <LaunchBreakModal 
+      <LaunchBreakModal
         isOpen={IsLaunchBreakModal}
         onRequestClose={handleCloseLaunchBreakModal}
       />
-      <ExitTimeModal 
+      <ExitTimeModal
         isOpen={IsExitTimeModal}
         onRequestClose={handleCloseExitTimeModal}
       />
